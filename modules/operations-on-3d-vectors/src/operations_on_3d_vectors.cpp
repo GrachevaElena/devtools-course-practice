@@ -4,32 +4,34 @@
 #include <cmath>
 
 double OperationsOn3dVectors::GetNorm(const Vector3d& vector) {
-    return sqrt(OperationsOn3dVectors::ScalarProduct(vector, vector));
+    return sqrt(OperationsOn3dVectors::DotProduct(vector, vector));
 }
 
-double OperationsOn3dVectors::ScalarProduct(const Vector3d& vector1,
+double OperationsOn3dVectors::DotProduct(const Vector3d& vector1,
     const Vector3d& vector2) {
-    return vector1.GetComponent(0) * vector2.GetComponent(0) +
-        vector1.GetComponent(1) * vector2.GetComponent(1) +
-        vector1.GetComponent(2) * vector2.GetComponent(2);
+    return vector1.x * vector2.x +
+        vector1.y * vector2.y +
+        vector1.z * vector2.z;
 }
 
-Vector3d OperationsOn3dVectors::VectorProduct(const Vector3d& vector1,
+Vector3d OperationsOn3dVectors::CrossProduct(const Vector3d& vector1,
     const Vector3d& vector2) {
     Vector3d result;
-    result[0] = vector1.GetComponent(1)*vector2.GetComponent(2) -
-        vector1.GetComponent(2)*vector2.GetComponent(1);
-    result[1] = vector1.GetComponent(2)*vector2.GetComponent(0) -
-        vector1.GetComponent(0)*vector2.GetComponent(2);
-    result[2] = vector1.GetComponent(0)*vector2.GetComponent(1) -
-        vector1.GetComponent(1)*vector2.GetComponent(0);
+    result.x = vector1.y*vector2.z -
+        vector1.z*vector2.y;
+    result.y = vector1.z*vector2.x -
+        vector1.x*vector2.z;
+    result.z = vector1.x*vector2.y -
+        vector1.y*vector2.x;
     return result;
 }
 
 Vector3d OperationsOn3dVectors::GetNormalizedVector(const Vector3d& vector) {
+    if (GetNorm(vector) == 0)
+        return vector;
     Vector3d result = vector;
-    result[0] /= GetNorm(vector);
-    result[1] /= GetNorm(vector);
-    result[2] /= GetNorm(vector);
+    result.x /= GetNorm(vector);
+    result.y /= GetNorm(vector);
+    result.z /= GetNorm(vector);
     return result;
 }

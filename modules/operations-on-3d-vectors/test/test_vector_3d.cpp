@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include "include/vector_3d.h"
 
-TEST(Gracheva_Elena_TestVector3d, correct_constructor_with_parameters) {
+TEST(Gracheva_Elena_TestVector3d, can_create_not_zero_vector) {
     // Arrange
     double component0 = 1, component1 = 2, component2 = 3;
 
@@ -11,12 +11,12 @@ TEST(Gracheva_Elena_TestVector3d, correct_constructor_with_parameters) {
     Vector3d vector(component0, component1, component2);
 
     // Assert
-    EXPECT_DOUBLE_EQ(component0, vector.GetComponent(0));
-    EXPECT_DOUBLE_EQ(component1, vector.GetComponent(1));
-    EXPECT_DOUBLE_EQ(component2, vector.GetComponent(2));
+    EXPECT_DOUBLE_EQ(component0, vector.x);
+    EXPECT_DOUBLE_EQ(component1, vector.y);
+    EXPECT_DOUBLE_EQ(component2, vector.z);
 }
 
-TEST(Gracheva_Elena_TestVector3d, correct_constructor_without_parameters) {
+TEST(Gracheva_Elena_TestVector3d, can_create_zero_vector) {
     // Arrange
     Vector3d expectedResult(0, 0, 0);
 
@@ -27,66 +27,18 @@ TEST(Gracheva_Elena_TestVector3d, correct_constructor_without_parameters) {
     EXPECT_EQ(expectedResult, result);
 }
 
-TEST(Gracheva_Elena_TestVector3d, correct_indexing_valid_arguments) {
+TEST(Gracheva_Elena_TestVector3d, can_compare_equals_vector) {
     // Arrange
-    Vector3d vector(1, 2, 3);
-
-    // Act
-    double data1 = vector[1];
-
-    // Assert
-    EXPECT_DOUBLE_EQ(2, data1);
-}
-
-TEST(Gracheva_Elena_TestVector3d, get_correct_component_valid_arguments) {
-    // Arrange
-    Vector3d vector(1, 2, 3);
-
-    // Act
-    double data1 = vector.GetComponent(1);
-
-    // Assert
-    EXPECT_DOUBLE_EQ(2, data1);
-}
-
-TEST(Gracheva_Elena_TestVector3d,
-    correct_indexing_invalid_arguments_index_more_than_2) {
-    // Arrange
-    Vector3d vector(1, 2, 3);
-
-    // Act
-
-    // Assert
-    EXPECT_ANY_THROW(vector[3]);
-}
-
-TEST(Gracheva_Elena_TestVector3d,
-    correct_indexing_invalid_arguments_index_less_than_0) {
-    // Arrange
-    Vector3d vector(1, 2, 3);
-
-    // Act
-
-    // Assert
-    EXPECT_ANY_THROW(vector[-1]);
-}
-
-TEST(Gracheva_Elena_TestVector3d,
-    get_correct_component_invalid_arguments_index_more_than_2) {
-    // Arrange
-    Vector3d vector(1, 2, 3);
+    Vector3d vector1(1, 2, 3), vector2(1, 2, 3);
 
     // Act, Assert
-    EXPECT_ANY_THROW(vector.GetComponent(3));
+    EXPECT_TRUE(vector1 == vector2);
 }
 
-TEST(Gracheva_Elena_TestVector3d,
-    get_correct_component_invalid_arguments_index_less_than_0) {
+TEST(Gracheva_Elena_TestVector3d, can_compare_not_equals_vector) {
     // Arrange
-    Vector3d vector(1, 2, 3);
+    Vector3d vector1(1, 2, 3), vector2(1, 2, 4);
 
-    // Act
-
-    // Assert
-    EXPECT_ANY_THROW(vector.GetComponent(-1));
+    // Act, Assert
+    EXPECT_TRUE(vector1 != vector2);
 }
